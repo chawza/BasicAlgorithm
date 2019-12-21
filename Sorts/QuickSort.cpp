@@ -8,11 +8,18 @@ void swap(int* a, int* b);
 void printIndexLocation(int* array, int size, int pivot, int left, int right);
 
 int numPartition = 0;
+int array_size = 12;
 int main(){
-    int array[12];
-    int array_size = 12;
+    //get user input for the array size
+    printf("Enter length of the array [Max 100]: ");
+    scanf("%d", &array_size);
+    getchar();
+
+    //generate array
+    int array[100];
     generateArray(array, array_size);
-    puts("intitial array with 12 integer:");
+
+    printf("intitial array with %d integer:\n", array_size);
     printArray(array, array_size);
     puts("");
     quickSort(array, 0, 11);
@@ -25,19 +32,19 @@ void quickSort(int* array, int first, int last){
     if(first < last){
         numPartition++;
         int pivot = first; // we set the left most of the array as the pivot
-        int left = first+1;
+        int left = first;
         int right = last;
         printf("Number partition : %d\n", numPartition);
-        printIndexLocation(array, 12, pivot, left, right);
-        printArray(array, 12); 
+        printIndexLocation(array, array_size, pivot, left, right);
+        printArray(array, array_size); 
         while(left < right){
-            while(array[left] < array[pivot] && left < last) left++;       //left index will get to the right
+            while(array[left] <= array[pivot] && left < last) left++;       //left index will get to the right
             while(array[right] > array[pivot]) right--;     //right index will get to the left
 
             if(left < right){
                 swap(&array[left], &array[right]);      //swap the value
-                printIndexLocation(array, 12, pivot, left, right);
-                printArray(array, 12); 
+                printIndexLocation(array, array_size, pivot, left, right);
+                printArray(array, array_size); 
             }
             else printf("Partition Finish\n");
         }
@@ -56,7 +63,7 @@ void generateArray(int* array, int size){
 }
 
 void printArray(int* array, int size){
-    for(int a = 0;a < 12; a++) printf("========");
+    for(int a = 0;a < size; a++) printf("========");
     puts("");
 
     for(int a = 0; a< size;a++){
@@ -64,7 +71,7 @@ void printArray(int* array, int size){
     }
     puts("");
 
-    for(int a = 0;a < 12; a++) printf("========");
+    for(int a = 0;a < size; a++) printf("========");
     puts("");
 }
 
