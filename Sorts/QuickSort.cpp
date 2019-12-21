@@ -5,7 +5,7 @@ void generateArray(int* array, int size);
 void printArray(int* array, int size);
 void quickSort(int* array, int first, int last);
 void swap(int* a, int* b);
-void printIndexLocation(int* array, int size, int left, int right);
+void printIndexLocation(int* array, int size, int pivot, int left, int right);
 
 int numPartition = 0;
 int main(){
@@ -28,7 +28,7 @@ void quickSort(int* array, int first, int last){
         int left = first+1;
         int right = last;
         printf("Number partition : %d\n", numPartition);
-        printIndexLocation(array, 12, left, right);
+        printIndexLocation(array, 12, pivot, left, right);
         printArray(array, 12); 
         while(left < right){
             while(array[left] < array[pivot] && left < last) left++;       //left index will get to the right
@@ -36,7 +36,7 @@ void quickSort(int* array, int first, int last){
 
             if(left < right){
                 swap(&array[left], &array[right]);      //swap the value
-                printIndexLocation(array, 12, left, right);
+                printIndexLocation(array, 12, pivot, left, right);
                 printArray(array, 12); 
             }
             else printf("Partition Finish\n");
@@ -74,8 +74,11 @@ void swap(int* a, int* b){
     *b =temp;
 }
 
-void printIndexLocation(int* array, int size, int left, int right){
-    for(int a = 0; a<left; a++) printf("\t");
+void printIndexLocation(int* array, int size, int pivot, int left, int right){
+    for(int a = 0; a<pivot; a++) printf("\t");
+    
+    printf("[P]\t");
+    for(int a = pivot+1; a< left; a++);
 
     printf("L\t");
     for(int a = left+1; a < right; a++) printf("\t");
