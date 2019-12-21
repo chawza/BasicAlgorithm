@@ -7,40 +7,45 @@ void quickSort(int* array, int first, int last);
 void swap(int* a, int* b);
 void printIndexLocation(int* array, int size, int left, int right);
 
+int numPartition = 0;
 int main(){
     int array[12];
     int array_size = 12;
     generateArray(array, array_size);
-    puts("intitial array with 12 integer:\n");
+    puts("intitial array with 12 integer:");
     printArray(array, array_size);
+    puts("");
     quickSort(array, 0, 11);
-    puts("after Quick sort:");
+    puts("\nafter Quick sort:");
     printArray(array, array_size);
-    getchar();
     return 0;
 }
 
 void quickSort(int* array, int first, int last){
-    int pivot = first; // we set the left most of the array as the pivot
-    int left = first;
-    int right = last;
-    if(left < right){
+    if(first < last){
+        numPartition++;
+        int pivot = first; // we set the left most of the array as the pivot
+        int left = first+1;
+        int right = last;
+        printf("Number partition : %d\n", numPartition);
         printIndexLocation(array, 12, left, right);
         printArray(array, 12); 
         while(left < right){
-            while(array[left] <= array[pivot]) left++;       //left index will get to the right
-            while(array[pivot] < array[right]) right--;     //right index will get to the left
+            while(array[left] < array[pivot] && left < last) left++;       //left index will get to the right
+            while(array[right] > array[pivot]) right--;     //right index will get to the left
 
-            if(left < right)
+            if(left < right){
                 swap(&array[left], &array[right]);      //swap the value
-            printIndexLocation(array, 12, left, right);
-            printArray(array, 12); 
+                printIndexLocation(array, 12, left, right);
+                printArray(array, 12); 
+            }
+            else printf("Partition Finish\n");
         }
         puts("\n\n");
 
         swap(&array[pivot], &array[left]);
-        quickSort(array, first, right);
-        quickSort(array, right+1, last);
+        quickSort(array, first, left-1);
+        quickSort(array, left+1, last);
     }    
 }
 
