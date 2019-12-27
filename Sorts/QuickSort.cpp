@@ -23,7 +23,7 @@ int main(){
     printf("intitial array with %d integer:\n", array_size);
     printArray(array, array_size);
     puts("");
-    quickSort(array, 0, 11);
+    quickSort(array, 0, array_size-1);
     puts("\nafter Quick sort:");
     printArray(array, array_size);
     return 0;
@@ -41,21 +41,31 @@ void quickSort(int* array, int first, int last){
             printArray(array, array_size); 
         }
         while(left < right){
-            while(array[left] <= array[pivot] && left < last) left++;       //left index will get to the right
-            while(array[right] > array[pivot]) right--;     //right index will get to the left
+            while(array[left] <= array[pivot] && left < last) {
+                left++;       //left index will get to the right
+                if(simulation_toggle) printIndexLocation(array, array_size, pivot, left, right);
+            }
+            while(array[right] > array[pivot]) {
+                right--;     //right index will get to the left
+                if(simulation_toggle) printIndexLocation(array, array_size, pivot, left, right);
+            }
 
             if(left < right){
                 swap(&array[left], &array[right]);      //swap the value
                 if(simulation_toggle) {
-                    printIndexLocation(array, array_size, pivot, left, right);
                     printArray(array, array_size); 
                 }
             }
         }
-        if (simulation_toggle) puts("\n\n");
-
+        left--;
+        right++;
         swap(&array[pivot], &array[left]);
-        quickSort(array, first, left-1);
+        if (simulation_toggle) {
+            printArray(array, array_size); 
+            puts("\n\n");
+        }
+        
+        quickSort(array, first, left);
         quickSort(array, left+1, last);
     }    
 }
@@ -87,13 +97,13 @@ void swap(int* a, int* b){
 
 void printIndexLocation(int* array, int size, int pivot, int left, int right){
     for(int a = 0; a<pivot; a++) printf("\t");
-    
     printf("[P]\t");
-    for(int a = pivot+1; a< left; a++);
 
-    printf("L\t");
+    for(int a = pivot+1; a < left; a++) printf("\t");
+    if(left != pivot) printf("L\t");
+
     for(int a = left+1; a < right; a++) printf("\t");
-    printf("R\t");
+    if(left != right) printf("R\t");
 
     for(int a = right; a < size; a++) printf("\t");
     puts("");
