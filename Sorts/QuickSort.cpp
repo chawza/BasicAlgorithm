@@ -9,6 +9,7 @@ void printIndexLocation(int* array, int size, int pivot, int left, int right);
 
 int numPartition = 0;
 int array_size = 12;
+int simulation_toggle = 1;  //on or off sumulation
 int main(){
     //get user input for the array size
     printf("Enter length of the array [Max 100]: ");
@@ -34,21 +35,24 @@ void quickSort(int* array, int first, int last){
         int pivot = first; // we set the left most of the array as the pivot
         int left = first;
         int right = last;
-        printf("Number partition : %d\n", numPartition);
-        printIndexLocation(array, array_size, pivot, left, right);
-        printArray(array, array_size); 
+        if(simulation_toggle) {
+            printf("Number partition : %d\n", numPartition);
+            printIndexLocation(array, array_size, pivot, left, right);
+            printArray(array, array_size); 
+        }
         while(left < right){
             while(array[left] <= array[pivot] && left < last) left++;       //left index will get to the right
             while(array[right] > array[pivot]) right--;     //right index will get to the left
 
             if(left < right){
                 swap(&array[left], &array[right]);      //swap the value
-                printIndexLocation(array, array_size, pivot, left, right);
-                printArray(array, array_size); 
+                if(simulation_toggle) {
+                    printIndexLocation(array, array_size, pivot, left, right);
+                    printArray(array, array_size); 
+                }
             }
-            else printf("Partition Finish\n");
         }
-        puts("\n\n");
+        if (simulation_toggle) puts("\n\n");
 
         swap(&array[pivot], &array[left]);
         quickSort(array, first, left-1);
