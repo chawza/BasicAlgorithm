@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void insertionSort(int* array, int size);
+void selectionSort(int* array, int size);
 int findMin(int* array, int first, int last);
 void printArray(int *array, int size);
 void swap(int* a, int* b);
@@ -24,14 +24,14 @@ int main(){
     printArray(array, size);
     puts("");
 
-    insertionSort(array, size);
+    selectionSort(array, size);
 
     puts("");
     printf("Array after Insertion Sort\n");
     printArray(array, size);
 }
 
-void insertionSort(int* array, int size){
+void selectionSort(int* array, int size){
     for(int a = 0; a < size; a++){
         printCurrentIndex(array, size, a);
         int min = findMin(array, a, size);
