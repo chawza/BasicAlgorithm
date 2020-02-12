@@ -23,3 +23,6 @@ for strd in range(centroid_number):
     y = random.randint(1, 100)
     centroid.append(data(x,y))
 
+#k-mean
+while True:
+    
