@@ -8,7 +8,7 @@ input = np.array([2, -1, 4, -3, 1])
 
 #declare functions
 def sigmoid(a):
-    return 1/(1 + np.exp(-(weight.dot(input.T))))
+    return 1/(1 + np.exp(-a))
 
 def step(a):
     if a >= 0:
